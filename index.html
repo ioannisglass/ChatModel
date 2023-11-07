@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>CHUFFTY CHAT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        html,
+        body,
+        div,
+        span {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: url("https://www.bootdey.com/img/bgy.png") no-repeat fixed center;
+            background-size: cover;
+        }
+
+        .fa-2x {
+            font-size: 1.5em;
+        }
+
+        .app {
+            position: relative;
+            overflow: hidden;
+            top: 19px;
+            height: calc(100% - 38px);
+            margin: auto;
+            padding: 0;
+            box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .06), 0 2px 5px 0 rgba(0, 0, 0, .2);
+        }
+
+        .app-one {
+            background-color: #f7f7f7;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .06), 0 2px 5px 0 rgba(0, 0, 0, .2);
+        }
+
+        .side {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+        }
+
+        .side-one {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+            position: relative;
+            display: block;
+            top: 0;
+        }
+
+        .side-two {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 2;
+            position: relative;
+            top: -100%;
+            left: -100%;
+            -webkit-transition: left 0.3s ease;
+            transition: left 0.3s ease;
+
+        }
+
+
+        .heading {
+            padding: 10px 16px 10px 15px;
+            margin: 0;
+            height: 60px;
+            width: 100%;
+            background-color: #eee;
+            z-index: 1000;
+        }
+
+        .heading-avatar {
+            padding: 0;
+            cursor: pointer;
+
+        }
+
+        .heading-avatar-icon img {
+            border-radius: 50%;
+            height: 40px;
+            width: 40px;
+        }
+
+        .heading-name {
+            padding: 0 !important;
+            cursor: pointer;
+        }
+
+        .heading-name-meta {
+            font-weight: 700;
+            font-size: 100%;
+            padding: 5px;
+            padding-bottom: 0;
+            text-align: left;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #000;
+            display: block;
+        }
+
+        .heading-online {
+            display: none;
+            padding: 0 5px;
+            font-size: 12px;
+            color: #93918f;
+        }
+
+        .heading-compose {
+            padding: 0;
+        }
+
+        .heading-compose i {
+            text-align: center;
+            padding: 5px;
+            color: #93918f;
+            cursor: pointer;
+        }
+
+        /*Conversation*/
+
+        .conversation {
+            padding: 0 !important;
+            margin: 0 !important;
+            height: 100%;
+            /*width: 100%;*/
+            border-left: 1px solid rgba(0, 0, 0, .08);
+            /*overflow-y: auto;*/
+        }
+
+        .message {
+            padding: 0 !important;
+            margin: 0 !important;
+
+            background-size: cover;
+            overflow-y: auto;
+            border: 1px solid #f7f7f7;
+            height: calc(100% - 120px);
+        }
+
+        .message-previous {
+            margin: 0 !important;
+            padding: 0 !important;
+            height: auto;
+            width: 100%;
+        }
+
+        .previous {
+            font-size: 15px;
+            text-align: center;
+            padding: 10px !important;
+            cursor: pointer;
+        }
+
+        .previous a {
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .message-body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: auto;
+            height: auto;
+        }
+
+        .message-main-receiver {
+            /*padding: 10px 20px;*/
+            max-width: 60%;
+        }
+
+        .message-main-sender {
+            padding: 3px 20px !important;
+            margin-left: 40% !important;
+            max-width: 60%;
+        }
+
+        .message-text {
+            margin: 0 !important;
+            padding: 5px !important;
+            word-wrap: break-word;
+            font-weight: 200;
+            font-size: 14px;
+            padding-bottom: 0 !important;
+        }
+
+        .receiver {
+            width: auto !important;
+            padding: 4px 10px 7px !important;
+            border-radius: 10px 10px 10px 0;
+            background: #ffffff;
+            font-size: 12px;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+            word-wrap: break-word;
+            display: inline-block;
+        }
+
+        .sender {
+            float: right;
+            width: auto !important;
+            background: #dcf8c6;
+            border-radius: 10px 10px 0 10px;
+            padding: 4px 10px 7px !important;
+            font-size: 12px;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+            display: inline-block;
+            word-wrap: break-word;
+        }
+
+
+        /*Reply*/
+
+        .reply {
+            height: 60px;
+            width: 100%;
+            background-color: #f5f1ee;
+            padding: 10px 5px 10px 5px !important;
+            margin: 0 !important;
+            z-index: 1000;
+        }
+
+        .reply-send {
+            padding: 5px !important;
+        }
+
+        .reply-send i {
+            text-align: center;
+            padding: 5px !important;
+            color: #93918f;
+            cursor: pointer;
+        }
+
+        .reply-main {
+            padding: 2px 5px !important;
+        }
+
+        .reply-main textarea {
+            width: 100%;
+            resize: none;
+            overflow: hidden;
+            padding: 5px !important;
+            outline: none;
+            border: none;
+            text-indent: 5px;
+            box-shadow: none;
+            height: 100%;
+            font-size: 16px;
+        }
+
+        .reply-main textarea:focus {
+            outline: none;
+            border: none;
+            text-indent: 5px;
+            box-shadow: none;
+        }
+
+        @media screen and (max-width: 700px) {
+            .app {
+                top: 0;
+                height: 100%;
+            }
+
+            .heading {
+                height: 70px;
+                background-color: #009688;
+            }
+
+            .fa-2x {
+                font-size: 2.3em !important;
+            }
+
+            .heading-avatar {
+                padding: 0 !important;
+            }
+
+            .heading-avatar-icon img {
+                height: 50px;
+                width: 50px;
+            }
+
+            .heading-compose {
+                padding: 5px !important;
+            }
+
+            .heading-compose i {
+                color: #fff;
+                cursor: pointer;
+            }
+
+            /*Conversation*/
+            .conversation {
+                padding: 0 !important;
+                margin: 0 !important;
+                height: 100%;
+                /*width: 100%;*/
+                border-left: 1px solid rgba(0, 0, 0, .08);
+                /*overflow-y: auto;*/
+            }
+
+            .message {
+                height: calc(100% - 140px);
+            }
+
+            .reply {
+                height: 70px;
+            }
+
+            .reply-main {
+                padding: 2px 8px !important;
+            }
+
+            .reply-main textarea {
+                padding: 8px !important;
+                font-size: 18px;
+            }
+
+            .reply-send {
+                padding: 5px 0 !important;
+            }
+
+            .reply-send i {
+                padding: 5px 2px 5px 0 !important;
+                font-size: 1.8em !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <div class="container app">
+        <div class="row app-one">
+            <div class="conversation">
+                <div class="row heading">
+                    <!-- <div class="col-sm-8 col-xs-7 heading-name">
+                        <a class="heading-name-meta">John Doe
+                        </a>
+                        <span class="heading-online">Online</span>
+                    </div> -->
+                </div>
+                <div class="row message" id="conversation">
+                </div>
+                <div class="row reply">
+                    <div class="col-sm-11 col-xs-11 reply-main">
+                        <textarea class="form-control" rows="1" id="comment"></textarea>
+                    </div>
+                    <div class="col-sm-1 col-xs-1 reply-send" id="fetchButton">
+                        <i class="fa fa-send fa-2x" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        var messages = [];
+        var processing = false
+        var contentLoaded = false
+        document.addEventListener("DOMContentLoaded", function() {
+            // This function will be executed when the DOM is fully loaded
+
+            // Create a new XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+
+            // Configure the GET request
+            // xhr.open("GET", "https://ihct.pythonanywhere.com/api/init", true); // Replace with your API URL
+            xhr.open("GET", "http://192.168.8.171:5000/api/init", true); // Replace with your API URL
+
+            // Set up a callback function to handle the response
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // The request was successful; handle the response data here
+                    var responseData = xhr.responseText;
+                    console.log("Response:", responseData);
+                    contentLoaded = true
+                } else {
+                    // The request encountered an error; handle the error here
+                    console.error("Request failed with status:", xhr.status);
+                }
+            };
+
+            // Send the GET request
+            xhr.send();
+        });
+
+        $(function () {
+            $(".heading-compose").click(function () {
+                $(".side-two").css({
+                    "left": "0"
+                });
+            });
+
+            $(".newMessage-back").click(function () {
+                $(".side-two").css({
+                    "left": "-100%"
+                });
+            });
+        })
+        document.getElementById("fetchButton").addEventListener("click", fetchData);
+        document.getElementById("comment").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+              fetchData();
+              event.preventDefault(); // Prevent the default Enter key behavior
+            }
+        });
+
+        function fetchData() {
+            if (contentLoaded === false)
+                return
+            if (processing === true)
+                return
+            processing = true
+            var comment = document.getElementById("comment").value;
+            if (comment === '')
+                return
+            messages.push(comment);
+            var dataToSend = {
+                "msg": comment
+            };
+            // Make an AJAX request
+            var xhr = new XMLHttpRequest();
+            // xhr.open("POST", "https://ihct.pythonanywhere.com/api/chat", true); // Replace with your API endpoint
+            xhr.open("POST", "http://192.168.8.171:5000/api/chat", true); // Replace with your API endpoint
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                  // Process the response and display it
+                  var response = JSON.parse(xhr.responseText); // Parse JSON response
+                  messages.push(response["msg"])
+                  var conversationDisplay = document.getElementById("conversation");
+                  // Clear previous content
+                  conversationDisplay.innerHTML = "";
+                  var newResponseHTML = ``;
+                  // Loop through the array elements and display them
+                  for (var i = 0; i < messages.length; i++) {
+                    if (i % 2 == 0)
+                        newResponseHTML = `
+                            <div class="row message-body">
+                                <div class="col-sm-12 message-main-sender">
+                                <div class="sender">
+                                    <div class="message-text">
+                                        ${messages[i]}
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        `;
+                    else
+                        newResponseHTML = `
+                            <div class="row message-body">
+                                <div class="col-sm-12 message-main-receiver">
+                                <div class="receiver">
+                                    <div class="message-text">
+                                        ${messages[i]}
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        `;
+                    conversationDisplay.innerHTML += newResponseHTML;
+                  }
+                  document.getElementById("comment").value = ""
+                  processing = false
+                } else {
+                  document.getElementById("conversation").textContent = "Error fetching data.";
+                  processing = false
+                }
+              }
+            };
+            xhr.send(JSON.stringify(dataToSend));
+        }
+    </script>
+</body>
+
+</html>

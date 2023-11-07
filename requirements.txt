@@ -1,0 +1,12 @@
+tensorflow
+sklearn
+nltk
+colorama
+flask
+
+# Flask==2.3.3
+# Flask-Cors==4.0.0
+# tensorflow==2.13.0
+# scikit-learn==1.3.0
+# numpy==1.24.3
+# PyJWT==2.3.0
