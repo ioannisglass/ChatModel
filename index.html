@@ -423,6 +423,16 @@
             }
         });
 
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
         function fetchData() {
             if (contentLoaded === false)
                 return
@@ -433,13 +443,16 @@
             if (comment === '')
                 return
             messages.push(comment);
+            var uname = getParameterByName('u');
+            if (uname === null)
+                uname = ''
             var dataToSend = {
                 "msg": comment
             };
             // Make an AJAX request
             var xhr = new XMLHttpRequest();
             // xhr.open("POST", "https://ihct.pythonanywhere.com/api/chat", true); // Replace with your API endpoint
-            xhr.open("POST", "http://192.168.8.171:5000/api/chat", true); // Replace with your API endpoint
+            xhr.open("POST", `http://192.168.8.171:5000/api/chat?u=${uname}`, true); // Replace with your API endpoint
             xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
             xhr.onreadystatechange = function() {
               if (xhr.readyState === XMLHttpRequest.DONE) {

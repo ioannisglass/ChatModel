@@ -71,6 +71,7 @@ def chat():
             response["is_success"] = True
             response["msg"] = "Take care. See you soon."
             return response
+        user_name = request.args.get('u')
         global model
         global data
         global tokenizer
@@ -84,6 +85,7 @@ def chat():
             if i['tag'] == tag:
                 log_tag = i['tag']
                 response["msg"] = np.random.choice(i['responses'])
+        response["msg"] = response["msg"].replace("#uname", user_name)
         log(comment["msg"], response["msg"], log_tag)
         return response
     except Exception as ee:
